@@ -18,7 +18,11 @@ def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(
     if not Hash.verify_password(request.password, user.password):
         raise HTTPException(status_code=status.HTTP_404_Not_Found, detail="User not found")
 
-    access_token = create_access_token(data={'username': user.username, 'sub': user.username, 'scopes': request.scopes})
+    scopes = []
+    for scope in user.scopes:
+        scopes.append(scope.name)
+  
+    access_token = create_access_token(data={'username': user.username, 'sub': user.username, 'scopes': scopes})
 
     return {
         'access_token': access_token,

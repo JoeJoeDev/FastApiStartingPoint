@@ -20,5 +20,5 @@ def create_user(user: User, db: Session = Depends(get_db)):
 
 @router.get("/me", response_model=User)
 async def read_users_me(
-    current_user: Annotated[User, Security(get_current_user, scopes=["items"])]):
+    current_user: Annotated[User, Security(get_current_user, scopes=["admin"])]):
     return current_user

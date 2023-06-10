@@ -56,7 +56,6 @@ def get_current_user(security_scopes: SecurityScopes, token: str = Depends(oauth
   user = get_user_by_username(db, username=username)
   if user is None:
     raise credentials_exception
-  breakpoint()
   for scope in security_scopes.scopes:
     print(scope)
     if scope not in token_data.scopes:
